@@ -1,0 +1,30 @@
+{
+  "name": "ucpel-imdaz",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "migrations": "node src/db/config-db.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tuchtenhagen/ucpel-imdaz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tuchtenhagen/ucpel-imdaz/issues"
+  },
+  "homepage": "https://github.com/Tuchtenhagen/ucpel-imdaz#readme",
+  "dependencies": {
+    "@fastify/mysql": "^4.3.0",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.26.2",
+    "fastify-mysql": "^2.2.0",
+    "mysql": "^2.18.1",
+    "postgrator": "^7.2.0"
+  }
+}
