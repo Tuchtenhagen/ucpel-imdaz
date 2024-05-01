@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "migrations": "node src/db/config-db.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,6 +25,7 @@
     "fastify": "^4.26.2",
     "fastify-mysql": "^2.2.0",
     "mysql": "^2.18.1",
+    "nodemon": "^3.1.0",
     "postgrator": "^7.2.0"
   }
 }

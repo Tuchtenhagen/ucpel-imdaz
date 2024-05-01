@@ -7,15 +7,19 @@ const app = Fastify({
   logger: true
 })
 
-app.register(fastifyMySQL, process.env.DB_URL)
+app.register(fastifyMySQL, {
+  promise: true,
+  connectionString: process.env.DB_URL
+})
 app.register(routes)
 
 const startServer = async () => {
   try {
-      await app.listen(3000);
-      console.log('Servidor rodando em http://localhost:3000');
+      await app.listen({port: 3000});
+      // app.log
+      app.log.info('Servidor rodando em http://localhost:3000');
   } catch (err) {
-      console.error('Erro ao iniciar o servidor:', err);
+    app.log.error('Erro ao iniciar o servidor:', err);
       process.exit(1);
   }
 };
