@@ -25,6 +25,7 @@
     "fastify": "^4.26.2",
     "fastify-mysql": "^2.2.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.9.7",
     "nodemon": "^3.1.0",
     "postgrator": "^7.2.0"
   }
