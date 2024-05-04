@@ -73,7 +73,7 @@ VALUES (
 -- Inserts para a tabela CadastroAluno
 INSERT INTO
     CadastroAluno (
-        anoEscolar, alfabetizado, irmaoInstituicao, escola, NomeResponsavel, parentescoResponsabel, autorizaCadastroNotaFiscalGaucha, tipoResidencia, numeroPecas, possuiBanheiro, possuiAgua, possuiLuz, idCadastroGeral
+        anoEscolar, alfabetizado, irmaoInstituicao, escola, nomeResponsavel, parentescoResponsavel, autorizaCadastroNotaFiscalGaucha, tipoResidencia, numeroPecas, possuiBanheiro, possuiAgua, possuiLuz, idCadastroGeral
     )
 VALUES (
         '6º ano', TRUE, 'Carlos Oliveira', 'Escola Estadual Dom Pedro II', 'Maria Silva', 'Mãe', TRUE, 'Casa', 4, TRUE, TRUE, TRUE, 6

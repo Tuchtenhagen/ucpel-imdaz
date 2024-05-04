@@ -11,7 +11,7 @@ CREATE TABLE telefone (
 );
 
 CREATE TABLE CadastroAluno (
-    id INT PRIMARY KEY AUTO_INCREMENT, anoEscolar VARCHAR(25), alfabetizado BOOLEAN, irmaoInstituicao VARCHAR(1000), escola VARCHAR(100), NomeResponsavel VARCHAR(100), parentescoResponsabel VARCHAR(25), autorizaCadastroNotaFiscalGaucha BOOLEAN, tipoResidencia VARCHAR(100), numeroPecas INT, possuiBanheiro BOOLEAN, possuiAgua BOOLEAN, possuiLuz BOOLEAN, idCadastroGeral INT
+    id INT PRIMARY KEY AUTO_INCREMENT, anoEscolar VARCHAR(25), alfabetizado BOOLEAN, irmaoInstituicao VARCHAR(1000), escola VARCHAR(100), nomeResponsavel VARCHAR(100), parentescoResponsavel VARCHAR(25), autorizaCadastroNotaFiscalGaucha BOOLEAN, tipoResidencia VARCHAR(100), numeroPecas INT, possuiBanheiro BOOLEAN, possuiAgua BOOLEAN, possuiLuz BOOLEAN, idCadastroGeral INT
 );
 
 CREATE TABLE CadastroMae (

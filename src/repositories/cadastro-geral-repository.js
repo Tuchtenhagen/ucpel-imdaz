@@ -35,14 +35,14 @@ const createCadastroGeral = async (cadastro) => {
   }
 }
 
-const updateCadastroGeral = async (id, aluno) => {
+const updateCadastroGeral = async (id, cadastro) => {
   try {
     const [rows, fields] = await connection.query(`
     UPDATE cadastrogeral 
     SET
       rg = ?, nome = ?, genero = ?, etnia = ?, tipoDeficiencia = ?, dataNascimento = ?, dataEmissaoRg = ?, direitoImagem = ?, rendaFamiliarMensal = ?, rua = ?, numero = ?, bairro = ?, cpf = ?
     WHERE id = ?
-      `, [aluno.anoEscolar, aluno.alfabetizado, aluno.irmaoInstituicao, aluno.escola, aluno.NomeResponsavel, aluno.parentescoResponsabel, aluno.autorizaCadastroNotaFiscalGaucha, aluno.tipoResidencia, aluno.numeroPecas, aluno.possuiBanheiro, aluno.possuiAgua, aluno.possuiLuz, aluno.cpf, id])
+      `, [cadastro.rg, cadastro.nome, cadastro.genero, cadastro.etnia, cadastro.tipoDeficiencia, cadastro.dataNascimento, cadastro.dataEmissaoRg, cadastro.direitoImagem, cadastro.rendaFamiliarMensal, cadastro.rua, cadastro.numero, cadastro.bairro, cadastro.cpf, id])
     return rows
   } catch (err) {
     return err
