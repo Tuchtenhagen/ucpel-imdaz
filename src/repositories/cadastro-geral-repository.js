@@ -19,6 +19,15 @@ const getOneCadastroGeral = async (cpf) => {
   }
 }
 
+const getOneCadastroGeralById = async (id) => {
+  try {
+    const [rows, fields] = await connection.query(`SELECT * FROM cadastrogeral WHERE id = ?; `, [id])
+    return rows
+  } catch (err) {
+    return err
+  }
+}
+
 const createCadastroGeral = async (cadastro) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -45,7 +54,7 @@ const updateCadastroGeral = async (id, cadastro) => {
       `, [cadastro.rg, cadastro.nome, cadastro.genero, cadastro.etnia, cadastro.tipoDeficiencia, cadastro.dataNascimento, cadastro.dataEmissaoRg, cadastro.direitoImagem, cadastro.rendaFamiliarMensal, cadastro.rua, cadastro.numero, cadastro.bairro, cadastro.cpf, id])
     return rows
   } catch (err) {
-    return err
+    throw err
   }
 }
 
@@ -61,9 +70,10 @@ const deleteCadastroGeral = async (id) => {
 }
 
 export {
-  getOneCadastroGeral,
   getAllCadastroGeral,
+  deleteCadastroGeral,
   createCadastroGeral,
   updateCadastroGeral,
-  deleteCadastroGeral
+  getOneCadastroGeral,
+  getOneCadastroGeralById,
 }
