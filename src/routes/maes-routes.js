@@ -4,6 +4,7 @@ import {
   deleteMaeById, 
   createNewMae, 
   createMaeFilho,
+  deleteMaeFilho,
   updateMaeById, 
 } from '../controllers/maes-controllers.js'
 
@@ -48,7 +49,9 @@ export const MaeRoutes = async (app) => {
 
   app.post('/maes', {schema}, async (req, reply) => createNewMae(req, reply))
 
-  app.post('/maes/:id', async (req, reply) => createMaeFilho(req, reply))
+  app.post('/maes/relations/:id', async (req, reply) => createMaeFilho(req, reply))
+
+  app.post('/maes/relations/delete/:id', async (req, reply) => deleteMaeFilho(req, reply))
 
   app.put('/maes/:id', async (req, reply) => updateMaeById(req, reply))
 

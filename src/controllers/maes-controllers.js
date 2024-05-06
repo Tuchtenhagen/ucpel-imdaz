@@ -9,6 +9,7 @@ import {
 import { 
   getAlunoByMae,
   createMaeAluno,
+  deleteMaeAlunoById,
 } from '../repositories/mae-aluno-repository.js'
 
   export const getMaes = async (req, reply) => {
@@ -65,6 +66,29 @@ import {
       await alunos.map(filhoId => createMaeAluno(filhoId, id))      
 
         reply.status(201).send("Relation created")
+    } catch (err) {
+      reply.status(500).send(err);
+    }
+  }
+
+  export const deleteMaeFilho = async (req, reply) => {
+    const { id } = req.params
+    const { filhosId } = req.body 
+
+    try {
+      const alunos = await filhosId.filter(filhoId => {
+        return getOneAluno(id)
+      })
+
+      const mae = await getOneMae(id)
+      
+      if (alunos.length < 1 || mae.length < 1) {
+        return reply.status(404).send('Not found')
+      }
+
+      await alunos.map(filhoId => deleteMaeAlunoById(filhoId, id))      
+
+        reply.status(201).send("Relation deleted")
     } catch (err) {
       reply.status(500).send(err);
     }
