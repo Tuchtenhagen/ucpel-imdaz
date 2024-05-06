@@ -71,7 +71,7 @@ import {
         return reply.status(404).send('Aluno not found')
       }
 
-      await deleteAluno(id)
+      await deleteAluno(id, aluno[0].idCadastroGeral)
 
       reply.status(200).send("Deleted Aluno")
     } catch (err) {

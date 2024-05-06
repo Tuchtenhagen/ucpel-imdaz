@@ -1,10 +1,11 @@
 import { 
-  getAlunos, 
-  getAluno, 
-  createNewAluno, 
-  updateAlunoById, 
-  deleteAlunoById 
-} from '../controllers/alunos-controllers.js'
+  getMae, 
+  getMaes, 
+  deleteMaeById, 
+  createNewMae, 
+  createMaeFilho,
+  updateMaeById, 
+} from '../controllers/maes-controllers.js'
 
 const schema = {
   body: {
@@ -39,17 +40,19 @@ const schema = {
   }
 }
 
-export const AlunoRoutes = async (app) => {
+export const MaeRoutes = async (app) => {
 
-  app.get('/alunos', async (req, reply) => getAlunos(req, reply))
+  app.get('/maes', async (req, reply) => getMaes(req, reply))
 
-  app.get('/alunos/:id', async (req, reply) => getAluno(req, reply))
+  app.get('/maes/:id', async (req, reply) => getMae(req, reply))
 
-  app.post('/alunos', {schema}, async (req, reply) => createNewAluno(req, reply))
+  app.post('/maes', {schema}, async (req, reply) => createNewMae(req, reply))
 
-  app.put('/alunos/:id', async (req, reply) => updateAlunoById(req, reply))
+  app.post('/maes/:id', async (req, reply) => createMaeFilho(req, reply))
 
-  app.delete('/alunos/:id', async (req, reply) => deleteAlunoById(req, reply))
+  app.put('/maes/:id', async (req, reply) => updateMaeById(req, reply))
+
+  app.delete('/maes/:id', async (req, reply) => deleteMaeById(req, reply))
 
 
 }

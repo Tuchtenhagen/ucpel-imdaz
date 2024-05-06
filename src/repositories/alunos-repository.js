@@ -16,7 +16,6 @@ const getAllAlunos = async () => {
   }
 }
 
-
 const getOneAluno = async (id) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -73,17 +72,17 @@ const updateAluno = async (id, aluno, geral) => {
   }
 }
 
-const deleteAluno = async (id) => {
+const deleteAluno = async (id, idCadastroGeral) => {
   try {
-    connection.beginTransaction()
+    await connection.beginTransaction()
 
     const [rows, fields] = await connection.query(`
     DELETE FROM cadastroaluno WHERE id = ?;
       `, [id])
 
-    await deleteCadastroGeral(aluno[0]?.idCadastroGeral)
+    await deleteCadastroGeral(idCadastroGeral)
 
-      connection.commit()
+      await connection.commit()
     return rows
   } catch (err) {
     return err

@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import fastifyMySQL from '@fastify/mysql'
-import { Alunoroutes } from './src/routes/alunos-routes.js'
+import { AlunoRoutes } from './src/routes/alunos-routes.js'
+import { MaeRoutes } from './src/routes/maes-routes.js'
 import 'dotenv/config'
 
 const app = Fastify({
@@ -11,7 +12,8 @@ app.register(fastifyMySQL, {
   promise: true,
   connectionString: process.env.DB_URL
 })
-app.register(Alunoroutes)
+app.register(AlunoRoutes)
+app.register(MaeRoutes)
 
 const startServer = async () => {
   try {

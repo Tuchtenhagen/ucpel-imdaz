@@ -15,9 +15,11 @@ const getAllMaeAluno = async () => {
 const getAlunoByMae = async (idCadastroMae) => {
   try {
     const [rows, fields] = await connection.query(`
-    SELECT *
-    FROM maealuno 
-    WHERE idcadastromae = ?;
+    SELECT cg.* 
+    FROM maealuno ma
+    INNER JOIN cadastroaluno ca ON ca.id = ma.idCadastroAluno
+    INNER JOIN cadastrogeral cg ON cg.id = ca.idCadastroGeral
+    WHERE ma.idCadastroMae = ?;
       `, [idCadastroMae])
     return rows
   } catch (err) {
@@ -52,6 +54,17 @@ const deleteMaeAlunoById = async (id) => {
   }
 }
 
+const deleteMaeAlunoByCadastroMaeId = async (id) => {
+  try {
+    const [rows, fields] = await connection.query(`
+    DELETE FROM maealuno WHERE idCadastroMae = ?
+      `, [id])
+    return rows
+  } catch (err) {
+    return err
+  }
+}
+
 const deleteMaeAlunoByCPFMae = async (cpf) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -68,5 +81,6 @@ export {
   getAllMaeAluno,
   createMaeAluno,
   deleteMaeAlunoById,
-  deleteMaeAlunoByCPFMae
+  deleteMaeAlunoByCPFMae,
+  deleteMaeAlunoByCadastroMaeId,
 }
