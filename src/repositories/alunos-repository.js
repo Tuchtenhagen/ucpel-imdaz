@@ -1,5 +1,6 @@
 import { connection } from '../db/config-db.js'
 import { createCadastroGeral, updateCadastroGeral, deleteCadastroGeral } from './cadastro-geral-repository.js'
+import { createTelefone } from './telefone-repository.js'
 
 const getAllAlunos = async () => {
   try {
@@ -32,11 +33,14 @@ const getOneAluno = async (id) => {
   }
 }
 
-const createAluno = async (aluno,geral) => {
+const createAluno = async (aluno,geral, telefones) => {
   try {
     connection.beginTransaction()
-    
+    await createTelefone(telefone)
     const cadastroGeral = await createCadastroGeral(geral)
+    await telefones.map(map => {
+      return createTelefone(telefone, cadastroGeral.insertId)
+    })
     const [rows, fields] = await connection.query(`
     INSERT INTO cadastroaluno (
         anoEscolar, alfabetizado, irmaoInstituicao, escola, nomeResponsavel, parentescoResponsavel, autorizaCadastroNotaFiscalGaucha, tipoResidencia, numeroPecas, possuiBanheiro, possuiAgua, possuiLuz, idCadastroGeral

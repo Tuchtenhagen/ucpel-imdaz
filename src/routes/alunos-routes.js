@@ -35,6 +35,10 @@ const schema = {
       possuiBanheiro: { type: 'boolean' }, 
       possuiAgua: { type: 'boolean' }, 
       possuiLuz: { type: 'boolean' }, 
+      telefones: {
+        type: 'array',
+        items: { type: 'integer' }
+      }
     }
   }
 }

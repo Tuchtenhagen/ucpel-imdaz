@@ -30,10 +30,10 @@ import {
   }
 
   export const createNewAluno = async (req, reply) => {
-    const { CadastroGeral, cadastroAluno } =WireToCadastroGeralAndAluno(req.body)
+    const { CadastroGeral, cadastroAluno, telefones } =WireToCadastroGeralAndAluno(req.body)
 
     try {
-      await createAluno(cadastroAluno, CadastroGeral)
+      await createAluno(cadastroAluno, CadastroGeral, telefones)
 
         reply.status(201).send("Created Aluno")
     } catch (err) {
@@ -110,7 +110,8 @@ import {
         numero: infos.numero , 
         bairro: infos.bairro , 
         cpf: infos.cpf , 
-      }
+      },
+      telefones: infos.telefones
     }
   }
 

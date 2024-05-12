@@ -26,16 +26,16 @@ const getTelefoneByCPF = async (cpf) => {
   }
 }
 
-const createTelefone = async (telefone) => {
+const createTelefone = async (telefone, cadastroGeralId) => {
   try {
     const [rows, fields] = await connection.query(`
     INSERT INTO cadastromae (
       telefone, idcadastrogeral
     )
     VALUES (
-        ?, (select id from cadastrogeral where cpf = ?)
+        ?, ?
     )
-      `, [telefone.telefone, telefone.cpf])
+      `, [telefone.telefone, cadastroGeralId])
     return rows
   } catch (err) {
     return err
