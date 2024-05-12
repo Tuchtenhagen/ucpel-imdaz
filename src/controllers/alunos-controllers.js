@@ -6,6 +6,10 @@ import {
   deleteAluno 
 } from '../repositories/alunos-repository.js'
 
+import { 
+  getTelefoneByIdCadastroGeral
+} from '../repositories/telefone-repository.js'
+
   export const getAlunos = async (req, reply) => {
     try {
       const allAlunos = await getAllAlunos()
@@ -23,7 +27,10 @@ import {
         return reply.status(404).send('Aluno not found')
       }
 
-        reply.send(aluno)
+      const telefones = await getTelefoneByIdCadastroGeral(aluno[0].idCadastroGeral)
+      const fones = telefones.map(obj => obj.telefone)
+
+        reply.send({...aluno, telefones: [...fones]})
     } catch (err) {
       reply.status(500).send(err);
     }

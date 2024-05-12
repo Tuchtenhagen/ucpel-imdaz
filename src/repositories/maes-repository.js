@@ -1,6 +1,7 @@
 import { connection } from '../db/config-db.js'
 import { createCadastroGeral, updateCadastroGeral, deleteCadastroGeral } from './cadastro-geral-repository.js'
 import { deleteMaeAlunoByCadastroMaeId } from './mae-aluno-repository.js'
+import { createTelefone } from './telefone-repository.js'
 
 const getAllMaes = async () => {
   try {
@@ -34,12 +35,16 @@ const getOneMae = async (id) => {
   }
 }
 
-const createMae = async (mae, cadastroGeral) => {
+const createMae = async (mae, cadastroGeral, telefones) => {
   try {
     await connection.beginTransaction()
 
     const cadGeral = await createCadastroGeral(cadastroGeral)
 
+    await telefones.map(telefone => {
+      return createTelefone(telefone, cadGeral.insertId)
+    })
+    
     const [rows, fields] = await connection.query(`
     INSERT INTO cadastromae (
       nis, recebeBolsaFamilia, trabalhaFora, responsavelEnquantoFora, participarProjetoCulinaria, participarProjetoCostura, qtdFilhos, idCadastroGeral

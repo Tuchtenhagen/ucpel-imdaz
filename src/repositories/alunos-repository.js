@@ -36,9 +36,9 @@ const getOneAluno = async (id) => {
 const createAluno = async (aluno,geral, telefones) => {
   try {
     connection.beginTransaction()
-    await createTelefone(telefone)
+
     const cadastroGeral = await createCadastroGeral(geral)
-    await telefones.map(map => {
+    await telefones.map(telefone => {
       return createTelefone(telefone, cadastroGeral.insertId)
     })
     const [rows, fields] = await connection.query(`

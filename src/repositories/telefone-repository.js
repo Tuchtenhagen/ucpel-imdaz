@@ -12,14 +12,13 @@ const getAllTelefones = async () => {
 }
 
 
-const getTelefoneByCPF = async (cpf) => {
+const getTelefoneByIdCadastroGeral = async (id) => {
   try {
     const [rows, fields] = await connection.query(`
-    SELECT tel.telefone, cg.cpf 
-    FROM telefone tel 
-    JOIN cadastrogeral cg ON tel.idcadastrogeral = cg.id 
-    WHERE cg.cpf = ?;
-      `, [cpf])
+    SELECT telefone
+    FROM telefone
+    WHERE idCadastroGeral = ?;
+      `, [id])
     return rows
   } catch (err) {
     return err
@@ -29,16 +28,16 @@ const getTelefoneByCPF = async (cpf) => {
 const createTelefone = async (telefone, cadastroGeralId) => {
   try {
     const [rows, fields] = await connection.query(`
-    INSERT INTO cadastromae (
+    INSERT INTO telefone (
       telefone, idcadastrogeral
     )
     VALUES (
         ?, ?
     )
-      `, [telefone.telefone, cadastroGeralId])
+      `, [telefone, cadastroGeralId])
     return rows
   } catch (err) {
-    return err
+    throw err
   }
 }
 
@@ -83,6 +82,6 @@ export {
   createTelefone,
   updateTelefone,
   getAllTelefones,
-  getTelefoneByCPF,
-  deleteTelefoneByCPF
+  deleteTelefoneByCPF,
+  getTelefoneByIdCadastroGeral,
 }

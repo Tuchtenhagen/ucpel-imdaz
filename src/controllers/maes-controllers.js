@@ -11,6 +11,9 @@ import {
   createMaeAluno,
   deleteMaeAlunoById,
 } from '../repositories/mae-aluno-repository.js'
+import { 
+  getTelefoneByIdCadastroGeral
+} from '../repositories/telefone-repository.js'
 
   export const getMaes = async (req, reply) => {
     try {
@@ -30,17 +33,20 @@ import {
         return reply.status(404).send('Mãe not found')
       }
 
-        reply.send({...mae[0], filhos})
+      const telefones = await getTelefoneByIdCadastroGeral(mae[0].idCadastroGeral)
+      const fones = telefones.map(obj => obj.telefone)
+
+        reply.send({...mae[0], telefones: fones, filhos})
     } catch (err) {
       reply.status(500).send(err);
     }
   }
 
   export const createNewMae = async (req, reply) => {
-    const { CadastroGeral, cadastroMae } =WireToCadastroGeralAndMae(req.body)
+    const { CadastroGeral, cadastroMae, telefones } =WireToCadastroGeralAndMae(req.body)
 
     try {
-      await createMae(cadastroMae, CadastroGeral)
+      await createMae(cadastroMae, CadastroGeral, telefones)
 
         reply.status(201).send("Created Mae")
     } catch (err) {
@@ -76,7 +82,7 @@ import {
     const { filhosId } = req.body 
 
     try {
-      const alunos = await filhosId.filter(filhoId => {
+      const alunos = await filhosId.filter(() => {
         return getOneAluno(id)
       })
 
@@ -157,7 +163,8 @@ import {
         numero: infos.numero , 
         bairro: infos.bairro , 
         cpf: infos.cpf , 
-      }
+      },
+      telefones: infos.telefones
     }
   }
 

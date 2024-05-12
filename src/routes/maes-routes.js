@@ -25,18 +25,17 @@ const schema = {
       numero: { type: 'number' }, 
       bairro: { type: 'string' }, 
       cpf: { type: 'string' },
-      anoEscolar: { type: 'string' }, 
-      alfabetizado: { type: 'boolean' }, 
-      irmaoInstituicao: { type: 'string' }, 
-      escola: { type: 'string' }, 
-      nomeResponsavel: { type: 'string' }, 
-      parentescoResponsavel: { type: 'string' }, 
-      autorizaCadastroNotaFiscalGaucha: { type: 'boolean' }, 
-      tipoResidencia: { type: 'string' }, 
-      numeroPecas: { type: 'number' }, 
-      possuiBanheiro: { type: 'boolean' }, 
-      possuiAgua: { type: 'boolean' }, 
-      possuiLuz: { type: 'boolean' }, 
+      nis: { type: 'string' }, 
+      recebeBolsaFamilia: { type: 'boolean' }, 
+      trabalhaFora: { type: 'boolean' }, 
+      responsavelEnquantoFora: { type: 'boolean' }, 
+      participarProjetoCulinaria: { type: 'boolean' }, 
+      participarProjetoCostura: { type: 'boolean' }, 
+      qtdFilhos: { type: 'number' },
+      telefones: {
+        type: 'array',
+        items: { type: 'integer' }
+      }
     }
   }
 }
