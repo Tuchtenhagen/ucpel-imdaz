@@ -28,7 +28,7 @@ const schema = {
       nis: { type: 'string' }, 
       recebeBolsaFamilia: { type: 'boolean' }, 
       trabalhaFora: { type: 'boolean' }, 
-      responsavelEnquantoFora: { type: 'boolean' }, 
+      responsavelEnquantoFora: { type: 'string' }, 
       participarProjetoCulinaria: { type: 'boolean' }, 
       participarProjetoCostura: { type: 'boolean' }, 
       qtdFilhos: { type: 'number' },

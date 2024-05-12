@@ -1,7 +1,7 @@
 import { connection } from '../db/config-db.js'
 import { createCadastroGeral, updateCadastroGeral, deleteCadastroGeral } from './cadastro-geral-repository.js'
 import { deleteMaeAlunoByCadastroMaeId } from './mae-aluno-repository.js'
-import { createTelefone } from './telefone-repository.js'
+import { createTelefone, deleteTelefoneByIdCadastroGeral } from './telefone-repository.js'
 
 const getAllMaes = async () => {
   try {
@@ -91,6 +91,7 @@ const deleteMae = async (id, idCadastroGeral) => {
     DELETE FROM cadastromae WHERE id = ?;
       `, [id])
 
+      await deleteTelefoneByIdCadastroGeral(idCadastroGeral)
       await deleteCadastroGeral(idCadastroGeral)
     
       await connection.commit()

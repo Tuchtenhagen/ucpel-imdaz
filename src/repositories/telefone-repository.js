@@ -66,11 +66,11 @@ const deleteTelefone = async (telefone) => {
   }
 }
 
-const deleteTelefoneByCPF = async (cpf) => {
+const deleteTelefoneByIdCadastroGeral = async (id) => {
   try {
     const [rows, fields] = await connection.query(`
-    DELETE FROM telefone WHERE idcadastrogeral = (SELECT id FROM cadastrogeral WHERE cpf = ?)
-      `, [cpf])
+    DELETE FROM telefone WHERE idcadastrogeral = ?
+      `, [id])
     return rows
   } catch (err) {
     return err
@@ -82,6 +82,6 @@ export {
   createTelefone,
   updateTelefone,
   getAllTelefones,
-  deleteTelefoneByCPF,
   getTelefoneByIdCadastroGeral,
+  deleteTelefoneByIdCadastroGeral,
 }
