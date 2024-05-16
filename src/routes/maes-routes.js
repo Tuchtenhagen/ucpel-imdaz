@@ -8,6 +8,7 @@ import {
   updateMaeById, 
 } from '../controllers/maes-controllers.js'
 
+// Schema de validação para criação de uma mãe
 const schema = {
   body: {
     type: 'object',
@@ -42,18 +43,25 @@ const schema = {
 
 export const MaeRoutes = async (app) => {
 
+    // Rota para buscar todas mães
   app.get('/maes', async (req, reply) => getMaes(req, reply))
 
+    // Rota para buscar apenas uma mãe
   app.get('/maes/:id', async (req, reply) => getMae(req, reply))
 
+    // Rota para criar uma mãe
   app.post('/maes', {schema}, async (req, reply) => createNewMae(req, reply))
 
+      // Rota para criar um vinculo entre aluno e mãe
   app.post('/maes/relations/:id', async (req, reply) => createMaeFilho(req, reply))
 
+    // Rota para deletar um vinculo entre aluno e mãe
   app.post('/maes/relations/delete/:id', async (req, reply) => deleteMaeFilho(req, reply))
 
+    // Rota para alterar uma mãe
   app.put('/maes/:id', async (req, reply) => updateMaeById(req, reply))
 
+      // Rota para deletar uma mãe
   app.delete('/maes/:id', async (req, reply) => deleteMaeById(req, reply))
 
 

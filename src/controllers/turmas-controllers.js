@@ -10,6 +10,7 @@ import {
 
   export const getTurmas = async (req, reply) => {
     try {
+      // Busca todas turmas, caso contrário, retorna um erro
       const allTurmas = await getAllTurmas()
         reply.send(allTurmas)
     } catch (err) {
@@ -20,10 +21,12 @@ import {
   export const getTurma = async (req, reply) => {
     const { id } = req.params
     try {
+      // Busca uma turma pelo ID, caso contrário, retorna que não foi encontrado
       const turma = await getOneTurma(id)
       if (turma.length < 1) {
         return reply.status(404).send('Turma not found')
       }
+      // Busca o aluno vinculado a turma
       const aluno = await getOneAluno(turma[0].idCadastroAluno)
 
         reply.send({...turma[0], aluno})
@@ -34,6 +37,7 @@ import {
 
   export const createNewTurma = async (req, reply) => {
     try {
+      // Função para inserir turma no banco de dados
       await createTurma(req.body)
 
         reply.status(201).send("Created Turma")
@@ -46,6 +50,7 @@ import {
     const { id } = req.params
 
     try {
+      // Verifica se a turma existe para ser alterado, caso contrário, retorna turma não encontrada
       const turma = await getOneTurma(id)
       
       if (turma.length < 1) {
@@ -64,6 +69,7 @@ import {
     const { id } = req.params
 
     try {
+      // Verifica se a turma existe para ser deletado, caso contrário, retorna turma não encontrada
       const turma = await getOneTurma(id)
 
       if (turma.length < 1) {

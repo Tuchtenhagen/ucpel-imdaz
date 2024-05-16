@@ -17,6 +17,7 @@ import {
 
   export const getMaes = async (req, reply) => {
     try {
+      // Busca todas mães, caso contrário, retorna um erro
       const allMaes = await getAllMaes()
       reply.send(allMaes)
     } catch (err) {
@@ -27,12 +28,16 @@ import {
   export const getMae = async (req, reply) => {
     const { id } = req.params
     try {
+      // Busca uma mãe pelo ID, caso contrário, retorna que não foi encontrado
       const mae = await getOneMae(id)
+
+      // Busca os alunos que tem vinculo com a mãe pelo ID
       const filhos = await getAlunoByMae(id)
       if (mae.length < 1) {
         return reply.status(404).send('Mãe not found')
       }
 
+      // Busca os telefones vinculados a mãe
       const telefones = await getTelefoneByIdCadastroGeral(mae[0].idCadastroGeral)
       const fones = telefones.map(obj => obj.telefone)
 
@@ -43,6 +48,8 @@ import {
   }
 
   export const createNewMae = async (req, reply) => {
+
+      // Função para extrair, a partir do body da requisição, os dados de cada tabela para inserir no banco de dados
     const { CadastroGeral, cadastroMae, telefones } =WireToCadastroGeralAndMae(req.body)
 
     try {
@@ -59,16 +66,19 @@ import {
     const { filhosId } = req.body 
 
     try {
+      // busca os alunos existentes para vincular com a mãe
       const alunos = await filhosId.filter(filhoId => {
         return getOneAluno(id)
       })
 
+      // busca a mãe pelo ID passado na requisição
       const mae = await getOneMae(id)
       
       if (alunos.length < 1 || mae.length < 1) {
         return reply.status(404).send('Not found')
       }
 
+      // Percorre a Lista de alunos e vincula com a mãe
       await alunos.map(filhoId => createMaeAluno(filhoId, id))      
 
         reply.status(201).send("Relation created")
@@ -82,16 +92,19 @@ import {
     const { filhosId } = req.body 
 
     try {
+      // busca os alunos existentes para desvincular com a mãe
       const alunos = await filhosId.filter(() => {
         return getOneAluno(id)
       })
 
+      // busca a mãe pelo ID passado na requisição
       const mae = await getOneMae(id)
       
       if (alunos.length < 1 || mae.length < 1) {
         return reply.status(404).send('Not found')
       }
 
+      // Percorre a Lista de alunos e desvincula com a mãe
       await alunos.map(filhoId => deleteMaeAlunoById(filhoId, id))      
 
         reply.status(201).send("Relation deleted")
@@ -104,12 +117,14 @@ import {
     const { id } = req.params
 
     try {
+      // Verifica se a mãe existe para ser alterado, caso contrário, retorna mãe não encontrada
       const mae = await getOneMae(id)
       
       if (mae.length < 1) {
         return reply.status(404).send('Mae not found')
       }
 
+      // Função para extrair os dados que serão atualizados e/ou manter as informações das tabelas
       const  { CadastroGeral, cadastroMae } = WireToUpdateCadastroGeralAndMae(req.body, mae[0])
 
       await updateMae(id, cadastroMae, CadastroGeral)
@@ -124,6 +139,7 @@ import {
     const { id } = req.params
 
     try {
+      // Verifica se o aluno existe para ser deletado, caso contrário, retorna aluno não encontrado
       const mae = await getOneMae(id)
 
       if (mae.length < 1) {

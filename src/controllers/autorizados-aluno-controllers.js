@@ -10,6 +10,7 @@ import {
 
   export const getAutorizados = async (req, reply) => {
     try {
+      // Busca todos autorizados dos alunos, caso contrário, retorna um erro
       const allAutorizados = await getAllAutorizados()
         reply.send(allAutorizados)
     } catch (err) {
@@ -20,10 +21,12 @@ import {
   export const getAutorizado = async (req, reply) => {
     const { id } = req.params
     try {
+      // Busca um autorizado de aluno pelo ID, caso contrário, retorna que não foi encontrado
       const autorizado = await getOneAutorizado(id)
       if (autorizado.length < 1) {
         return reply.status(404).send('Autorizado not found')
       }
+      // Busca o aluno vinculados ao autorizado
       const aluno = await getOneAluno(autorizado[0].idCadastroAluno)
 
         reply.send({...autorizado[0], aluno})
@@ -34,6 +37,7 @@ import {
 
   export const createNewAutorizado = async (req, reply) => {
     try {
+      // Função para inserir um autorizado de aluno no banco de dados
       await createAutorizado(req.body)
 
         reply.status(201).send("Created Autorizado Aluno")
@@ -46,6 +50,7 @@ import {
     const { id } = req.params
 
     try {
+      // Verifica se o autorizado de um aluno existe para ser alterado, caso contrário, retorna autorizado não encontrado
       const autorizado = await getOneAutorizado(id)
       
       if (autorizado.length < 1) {
@@ -64,6 +69,7 @@ import {
     const { id } = req.params
 
     try {
+      // Verifica se o autorizado de um aluno existe para ser deletado, caso contrário, retorna autorizado não encontrado
       const autorizado = await getOneAutorizado(id)
 
       if (autorizado.length < 1) {

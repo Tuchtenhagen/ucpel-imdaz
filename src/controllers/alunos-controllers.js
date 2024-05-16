@@ -12,6 +12,7 @@ import {
 
   export const getAlunos = async (req, reply) => {
     try {
+      // Busca todos alunos, caso contrário, retorna um erro
       const allAlunos = await getAllAlunos()
         reply.send(allAlunos)
     } catch (err) {
@@ -22,11 +23,13 @@ import {
   export const getAluno = async (req, reply) => {
     const { id } = req.params
     try {
+      // Busca um aluno pelo ID, caso contrário, retorna que não foi encontrado
       const aluno = await getOneAluno(id)
       if (aluno.length < 1) {
         return reply.status(404).send('Aluno not found')
       }
 
+      // Busca os telefones vinculados ao aluno
       const telefones = await getTelefoneByIdCadastroGeral(aluno[0].idCadastroGeral)
       const fones = telefones.map(obj => obj.telefone)
 
@@ -37,6 +40,8 @@ import {
   }
 
   export const createNewAluno = async (req, reply) => {
+
+    // Função para extrair, a partir do body da requisição, os dados de cada tabela para inserir no banco de dados
     const { CadastroGeral, cadastroAluno, telefones } =WireToCadastroGeralAndAluno(req.body)
 
     try {
@@ -52,12 +57,15 @@ import {
     const { id } = req.params
 
     try {
+
+      // Verifica se o aluno existe para ser alterado, caso contrário, retorna aluno não encontrado
       const aluno = await getOneAluno(id)
       
       if (aluno.length < 1) {
         return reply.status(404).send('Aluno not found')
       }
 
+      // Função para extrair os dados que serão atualizados e/ou manter as informações das tabelas
       const  { CadastroGeral, cadastroAluno } = WireToUpdateCadastroGeralAndAluno(req.body, aluno[0])
 
       await updateAluno(id, cadastroAluno, CadastroGeral)
@@ -72,6 +80,8 @@ import {
     const { id } = req.params
 
     try {
+
+      // Verifica se o aluno existe para ser deletado, caso contrário, retorna aluno não encontrado
       const aluno = await getOneAluno(id)
 
       if (aluno.length < 1) {

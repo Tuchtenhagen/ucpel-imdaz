@@ -6,6 +6,7 @@ import {
   deleteAlunoById 
 } from '../controllers/alunos-controllers.js'
 
+// Schema de validação para criação de um aluno
 const schema = {
   body: {
     type: 'object',
@@ -45,14 +46,19 @@ const schema = {
 
 export const AlunoRoutes = async (app) => {
 
+  // Rota para buscar todos alunos
   app.get('/alunos', async (req, reply) => getAlunos(req, reply))
 
+  // Rota para buscar apenas um aluno
   app.get('/alunos/:id', async (req, reply) => getAluno(req, reply))
 
+  // Rota para criar um aluno
   app.post('/alunos', {schema}, async (req, reply) => createNewAluno(req, reply))
 
+  // Rota para alterar um aluno
   app.put('/alunos/:id', async (req, reply) => updateAlunoById(req, reply))
 
+    // Rota para deletar um aluno
   app.delete('/alunos/:id', async (req, reply) => deleteAlunoById(req, reply))
 
 
