@@ -25,3 +25,5 @@ Executar o seguinte comando para instalar as depedencias do projeto:
   ```
 
 ### Collection para testar a API
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=imdaz_collection&uri=https%3A%2F%2Fraw.githubusercontent.com%2FTuchtenhagen%2Fucpel-imdaz%2Fmain%2FInsomnia_collection_imdaz.json)
