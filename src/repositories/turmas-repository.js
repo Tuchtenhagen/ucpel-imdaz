@@ -1,5 +1,6 @@
 import { connection } from '../db/config-db.js'
 
+// Função para buscar todos os registros de turmas do banco de dados
 const getAllTurmas = async () => {
   try {
     const [rows, fields] = await connection.query(`
@@ -11,7 +12,7 @@ const getAllTurmas = async () => {
   }
 }
 
-
+// Função para buscar apenas uma turma do banco de dados, pelo ID
 const getOneTurma = async (id) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -23,6 +24,7 @@ const getOneTurma = async (id) => {
   }
 }
 
+// Função para criar um registro de turma no banco de dados
 const createTurma = async (turma) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -39,6 +41,7 @@ const createTurma = async (turma) => {
   }
 }
 
+// Função para atualizar o registro de uma turma no banco de dados
 const updateTurma = async (id, turma) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -53,6 +56,7 @@ const updateTurma = async (id, turma) => {
   }
 }
 
+// Função para deletar o registro de uma turma
 const deleteTurma = async (id) => {
   try {
     const [rows, fields] = await connection.query(`

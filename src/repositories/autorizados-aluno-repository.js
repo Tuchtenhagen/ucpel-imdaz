@@ -1,7 +1,13 @@
 import { connection } from '../db/config-db.js'
 
+// Função para buscar todos os registro de autorizados-alunos do banco de dados
 const getAllAutorizados = async () => {
   try {
+      /* 
+    A função query retorna uma estrutura de objetos do banco de dados,
+    estrutura essa que é um array de objetos, cada objeto contém os campos da 
+    tabela autorizadosaluno.
+    */ 
     const [rows, fields] = await connection.query(`
     SELECT * FROM autorizadosaluno
     `)
@@ -11,9 +17,10 @@ const getAllAutorizados = async () => {
   }
 }
 
-
+// Função para buscar apenas um registro autorizado-aluno do banco de dados, pelo ID
 const getOneAutorizado = async (id) => {
   try {
+        // rows vai retornar um array com apenas um elementro, que é o autorizado-aluno encontrado no banco de dados
     const [rows, fields] = await connection.query(`
     SELECT * FROM autorizadosaluno WHERE id = ?;
       `, [id])
@@ -23,6 +30,7 @@ const getOneAutorizado = async (id) => {
   }
 }
 
+// Função para criar um registro de autorizado-aluno no banco de dados
 const createAutorizado = async (autorizado) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -39,6 +47,7 @@ const createAutorizado = async (autorizado) => {
   }
 }
 
+// Função para atualizar os dados de um autorizado-aluno
 const updateAutorizado = async (id, autorizado) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -53,6 +62,7 @@ const updateAutorizado = async (id, autorizado) => {
   }
 }
 
+// Função para deletar o registro de um autorizado-aluno do banco de dados
 const deleteAutorizado = async (id) => {
   try {
     const [rows, fields] = await connection.query(`

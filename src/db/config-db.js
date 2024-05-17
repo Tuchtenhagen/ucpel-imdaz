@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise'
 import 'dotenv/config'
 
+// String de conexão com banco de dados
 const connection = await mysql.createConnection({
   host: 'localhost',
     port: 3306,

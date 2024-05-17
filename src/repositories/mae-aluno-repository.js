@@ -1,7 +1,13 @@
 import { connection } from '../db/config-db.js'
 
+// Função para buscar todos os registros de uma relação mãe-aluno do banco de dados
 const getAllMaeAluno = async () => {
   try {
+    /* 
+    A função query retorna uma estrutura de objetos do banco de dados,
+    estrutura essa que é um array de objetos, cada objeto contém os campos da 
+    tabela cadastrogeral e cadastro aluno.
+    */
     const [rows, fields] = await connection.query(`
     SELECT * FROM maealuno
     `)
@@ -11,7 +17,7 @@ const getAllMaeAluno = async () => {
   }
 }
 
-
+// Função para buscar alunos que tenham uma relação com uma mãe, pelo ID da mãe
 const getAlunoByMae = async (idCadastroMae) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -27,6 +33,7 @@ const getAlunoByMae = async (idCadastroMae) => {
   }
 }
 
+// Função para criar um registro de uma relação mãe-aluno no banco de dados
 const createMaeAluno = async (idAluno, idMae) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -43,6 +50,7 @@ const createMaeAluno = async (idAluno, idMae) => {
   }
 }
 
+// Função para deletar o registro de uma relação mãe-aluno do banco de dados, pelo ID 
 const deleteMaeAlunoById = async (id) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -54,6 +62,7 @@ const deleteMaeAlunoById = async (id) => {
   }
 }
 
+// Função para deletar o registro de uma relação mãe-aluno do banco de dados, pelo ID da mãe
 const deleteMaeAlunoByCadastroMaeId = async (id) => {
   try {
     const [rows, fields] = await connection.query(`
@@ -65,6 +74,7 @@ const deleteMaeAlunoByCadastroMaeId = async (id) => {
   }
 }
 
+// Função para deletar o registro de uma relação mãe-aluno do banco de dados, pelo cpf da mãe
 const deleteMaeAlunoByCPFMae = async (cpf) => {
   try {
     const [rows, fields] = await connection.query(`
